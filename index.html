@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material Interactivo: Ciencia y Ciencia Ficción</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-image {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 100%;
+            opacity: 0.1;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="white" d="M50,5L60,35H95L65,55L75,85L50,70L25,85L35,55L5,35H40Z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right center;
+            background-size: contain;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+            position: relative;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .grado {
+            display: inline-block;
+            background-color: #3498db;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+            position: relative;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+            gap: 20px;
+        }
+        
+        .texto-principal {
+            flex: 3;
+            min-width: 300px;
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #3498db;
+        }
+        
+        .actividades {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .seccion {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eaeaea;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        h3 {
+            color: #2980b9;
+            margin: 15px 0 10px 0;
+        }
+        
+        h4 {
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        /* Estilos para imágenes */
+        .imagen-contenedor {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .imagen-cientifica {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+        
+        .imagen-descripcion {
+            font-style: italic;
+            color: #666;
+            margin-top: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .galeria-autores {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        
+        .autor-card {
+            flex: 1;
+            min-width: 150px;
+            max-width: 180px;
+            text-align: center;
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+        
+        .autor-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .autor-imagen {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 3px solid #3498db;
+        }
+        
+        .autor-nombre {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .autor-descripcion {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .imagen-ciencia-ficcion {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .destacado {
+            background-color: #e8f4fc;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .recuerda {
+            background-color: #fff8e1;
+            border-left: 4px solid #f39c12;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .ten-en-cuenta {
+            background-color: #e8f6f3;
+            border-left: 4px solid #16a085;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        /* Estilos para actividades interactivas */
+        .actividad {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .actividad:last-child {
+            border-bottom: none;
+        }
+        
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-top: 8px;
+            resize: vertical;
+            transition: border 0.3s;
+        }
+        
+        textarea:focus, input[type="text"]:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        .tabla {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .tabla-header {
+            font-weight: bold;
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .tabla-cell {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            min-height: 60px;
+        }
+        
+        .opciones {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .opcion {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .opcion:hover {
+            border-color: #3498db;
+            background-color: #f0f8ff;
+        }
+        
+        .opcion.seleccionada {
+            border-color: #3498db;
+            background-color: #e8f4fc;
+        }
+        
+        .radio-btn {
+            margin-right: 10px;
+            accent-color: #3498db;
+        }
+        
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-imprimir {
+            background-color: #2c3e50;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        
+        .btn-imprimir:hover {
+            background-color: #1a252f;
+        }
+        
+        .resultado {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+            display: none;
+        }
+        
+        .resultado.mostrar {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .personajes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .personaje-card {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #eaeaea;
+        }
+        
+        .contador-palabras {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            text-align: right;
+            margin-top: 5px;
+        }
+        
+        /* ESTILOS PARA LA AUTOEVALUACIÓN */
+        .autoevaluacion-container {
+            background: linear-gradient(135deg, #f8f9fa, #e8f4fc);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 20px;
+            border: 2px solid #3498db;
+        }
+        
+        .autoevaluacion-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .autoevaluacion-header h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        
+        .info-estudiante {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .campo-formulario {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .campo-formulario label {
+            display: block;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .campo-formulario input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        
+        .campo-formulario input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        .tabla-autoevaluacion {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .tabla-autoevaluacion th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .tabla-autoevaluacion td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tabla-autoevaluacion tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .tabla-autoevaluacion tr:hover {
+            background-color: #f0f8ff;
+        }
+        
+        .criterio {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .opciones-evaluacion {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .opcion-evaluacion {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+        
+        .opcion-evaluacion:hover {
+            background-color: #f0f8ff;
+        }
+        
+        .opcion-evaluacion.seleccionada {
+            background-color: #e8f4fc;
+            border: 2px solid #3498db;
+        }
+        
+        .opcion-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #3498db;
+            border-radius: 50%;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .opcion-checkbox.seleccionada::after {
+            content: "✓";
+            color: #3498db;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .opcion-texto {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .reflexion-final {
+            margin-top: 30px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .reflexion-final h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f39c12;
+        }
+        
+        .pregunta-reflexion {
+            margin-bottom: 20px;
+        }
+        
+        .pregunta-reflexion p {
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .compromiso-personal {
+            margin-top: 30px;
+            background-color: #e8f6f3;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #16a085;
+        }
+        
+        .compromiso-personal h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .resumen-autoevaluacion {
+            background-color: #fff8e1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+            border-left: 5px solid #f39c12;
+            display: none;
+        }
+        
+        .resumen-autoevaluacion.mostrar {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .estadisticas {
+            display: flex;
+            justify-content: space-around;
+            margin: 15px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .estadistica {
+            text-align: center;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            min-width: 120px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+        }
+        
+        .numero-estadistica {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        
+        .texto-estadistica {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .btn-autoevaluacion {
+            background-color: #16a085;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-autoevaluacion:hover {
+            background-color: #138d75;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 30px;
+            border-radius: 0 0 15px 15px;
+        }
+        
+        @media print {
+            .btn-imprimir, .btn, .btn-autoevaluacion {
+                display: none !important;
+            }
+            
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+            
+            .opcion {
+                border: 1px solid #ccc;
+            }
+            
+            .opcion-evaluacion.seleccionada {
+                border: 1px solid #000;
+            }
+            
+            .resumen-autoevaluacion {
+                display: block !important;
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .galeria-autores {
+                justify-content: center;
+            }
+            
+            .autor-card {
+                min-width: 120px;
+            }
+            
+            .opciones-evaluacion {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .opcion-evaluacion {
+                flex-direction: row;
+                justify-content: flex-start;
+                gap: 10px;
+            }
+            
+            .estadisticas {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .estadistica {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-image"></div>
+            <h1>Ciencia y Ciencia Ficción</h1>
+            <p class="subtitle">Material interactivo para 2.º grado de secundaria</p>
+            <div class="grado">Ficha 3</div>
+        </header>
+        
+        <div class="content-wrapper">
+            <div class="texto-principal">
+                <h2>Texto: Ciencia y Ciencia Ficción</h2>
+                
+                <div class="imagen-contenedor">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Ciencia ficción futurista" class="imagen-cientifica">
+                    <p class="imagen-descripcion">Representación artística de un futuro tecnológico</p>
+                </div>
+                
+                <p>¿Puede haber vida inteligente en la superficie de una estrella de neutrones? ¿Podemos llegar a estrellas que distan varios años luz de nuestro sistema solar? ¿Existe el monopolo magnético? ¿Es posible enviar un mensaje al pasado modulando un haz de taquiones? ¿Puede desarrollarse una inteligencia artificial con la personalidad de Sigmund Freud o de Albert Einstein?</p>
+                
+                <div class="imagen-contenedor">
+                    <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Estrella de neutrones en el espacio" class="imagen-cientifica">
+                    <p class="imagen-descripcion">Concepto artístico de una estrella de neutrones</p>
+                </div>
+                
+                <p>Por lo que hoy sabemos, todas estas preguntas tienen la misma respuesta: un categórico no. Pero el hecho de que la ciencia nos niegue estas posibilidades no impide que sea factible especular sobre ellas u otras parecidas. Esta es una de las principales funciones y atractivos de la ciencia ficción que, entre otros, tiene por objeto especular con amenidad sobre "la respuesta humana a los cambios en el nivel de la ciencia y de la tecnología", según opinaba Isaac Asimov, divulgador científico y famoso autor de ciencia ficción.</p>
+                
+                <div class="destacado">
+                    <h3>La ciencia ficción</h3>
+                    <p>Distinta de la divulgación científica o popularización de la ciencia, ha de resultar evidente que la ciencia ficción es, básicamente, un género o mejor una temática genérica que encuentra sus mejores resultados en vehículos como la literatura, el cine, la televisión, el cómic o las diversas artes narrativas.</p>
+                </div>
+                
+                <div class="imagen-contenedor">
+                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Libros de ciencia ficción" class="imagen-ciencia-ficcion">
+                    <p class="imagen-descripcion">Libros clásicos de ciencia ficción</p>
+                </div>
+                
+                <h3>Autores con formación científica</h3>
+                <p>La ciencia ficción empezó a hacerse popular en los años cuarenta y cincuenta del siglo XX, precisamente con autores, hoy ya clásicos, que disponían de unos sólidos conocimientos científicos:</p>
+                
+                <div class="galeria-autores">
+                    <div class="autor-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/Isaac.Asimov01.jpg" alt="Isaac Asimov" class="autor-imagen">
+                        <div class="autor-nombre">Isaac Asimov</div>
+                        <div class="autor-descripcion">Doctor en química y profesor universitario</div>
+                    </div>
+                    
+                    <div class="autor-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Arthur_C._Clarke_%281964%29.jpg" alt="Arthur C. Clarke" class="autor-imagen">
+                        <div class="autor-nombre">Arthur C. Clarke</div>
+                        <div class="autor-descripcion">Pionero en astronáutica, propuso satélites geoestacionarios</div>
+                    </div>
+                    
+                    <div class="autor-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Robert_A._Heinlein_signature.jpg" alt="Robert A. Heinlein" class="autor-imagen">
+                        <div class="autor-nombre">Robert A. Heinlein</div>
+                        <div class="autor-descripcion">Ingeniero naval</div>
+                    </div>
+                </div>
+                
+                <div class="ten-en-cuenta">
+                    <h4>Ten en cuenta</h4>
+                    <p><strong>Condicionales:</strong> son enunciados que señalan lo que habría sido cierto en diferentes circunstancias, como una noción de posibilidad que aplica tanto al pasado como al presente y al futuro.</p>
+                    <p><strong>"Sentido de lo maravilloso":</strong> es una expresión que alude a las sensaciones que tiene el lector porque el relato lo sorprende, al estar fuera de la realidad, y presentarle un mundo irreal pero deseable.</p>
+                </div>
+                
+                <div class="imagen-contenedor">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Cine de ciencia ficción" class="imagen-ciencia-ficcion">
+                    <p class="imagen-descripcion">El cine como medio para la ciencia ficción</p>
+                </div>
+                
+                <div class="recuerda">
+                    <h4>Recuerda</h4>
+                    <p><strong>Un divulgador científico</strong> es el que utiliza diversos medios al alcance del gran público para comunicar el conocimiento científico.</p>
+                </div>
+                
+                <h3>Características de la ciencia ficción</h3>
+                <p>La ciencia ficción disfruta de dos características propias que la hacen muy especial:</p>
+                
+                <div class="imagen-contenedor">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Tecnología futurista" class="imagen-cientifica">
+                    <p class="imagen-descripcion">Tecnología futurista que inspira la ciencia ficción</p>
+                </div>
+                
+                <p><strong>1. Vertiente reflexiva:</strong> Nos presenta especulaciones que nos hacen meditar sobre nuestro mundo, nuestra organización social, o sobre los efectos y las consecuencias de la ciencia y la tecnología.</p>
+                
+                <p><strong>2. Sentido de lo maravilloso:</strong> Ofrece posibilidades de maravilla y admiración, abriendo los ojos de la mente a nuevos universos que contemplamos maravillados y sorprendidos.</p>
+                
+                <div class="imagen-contenedor">
+                    <img src="https://images.unsplash.com/photo-1446776877081-d282a0f896e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Universo y galaxias" class="imagen-cientifica">
+                    <p class="imagen-descripcion">La inmensidad del universo fuente de inspiración para la ciencia ficción</p>
+                </div>
+            </div>
+            
+            <div class="actividades">
+                <div class="seccion">
+                    <h2>Actividades Interactivas</h2>
+                    
+                    <!-- Actividad 1 -->
+                    <div class="actividad">
+                        <h3>1. ¿De qué trata el texto?</h3>
+                        <p>Después de realizar una lectura global del texto, escribe un resumen breve sobre el tema principal:</p>
+                        <textarea id="resumen-texto" rows="4" placeholder="Escribe aquí tu resumen..."></textarea>
+                        <div class="contador-palabras" id="contador1">0 palabras</div>
+                        <button class="btn" onclick="guardarRespuesta('resumen-texto', 'Actividad 1 guardada')">Guardar Respuesta</button>
+                        <div class="resultado" id="resultado1">
+                            <strong>¡Respuesta guardada!</strong> Podrás revisarla cuando termines todas las actividades.
+                        </div>
+                    </div>
+                    
+                    <!-- Actividad 2 -->
+                    <div class="actividad">
+                        <h3>2. Compara tus conocimientos previos</h3>
+                        <p>¿Qué imágenes o palabras venían a tu mente cuando pensabas en ciencia ficción antes de leer el texto? Compáralo con lo que aprendiste:</p>
+                        
+                        <div class="tabla">
+                            <div class="tabla-header">Similitudes</div>
+                            <div class="tabla-header">Diferencias</div>
+                            
+                            <div class="tabla-cell">
+                                <textarea id="similitudes" rows="3" placeholder="Lo que ya sabía y confirmé..."></textarea>
+                            </div>
+                            <div class="tabla-cell">
+                                <textarea id="diferencias" rows="3" placeholder="Lo nuevo que aprendí..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <button class="btn" onclick="guardarComparacion()">Guardar Comparación</button>
+                        <div class="resultado" id="resultado2">
+                            <strong>¡Comparación guardada!</strong>
+                        </div>
+                    </div>
+                    
+                    <!-- Actividad 4 -->
+                    <div class="actividad">
+                        <h3>3. Personajes científicos en el texto</h3>
+                        <p>Señala los personajes científicos que se nombran en el texto y escribe lo que conoces de ellos:</p>
+                        
+                        <div class="personajes-grid">
+                            <div class="personaje-card">
+                                <h4>Isaac Asimov</h4>
+                                <textarea id="asimov" rows="3" placeholder="Lo que sé sobre Asimov..."></textarea>
+                            </div>
+                            
+                            <div class="personaje-card">
+                                <h4>Arthur C. Clarke</h4>
+                                <textarea id="clarke" rows="3" placeholder="Lo que sé sobre Clarke..."></textarea>
+                            </div>
+                            
+                            <div class="personaje-card">
+                                <h4>Robert A. Heinlein</h4>
+                                <textarea id="heinlein" rows="3" placeholder="Lo que sé sobre Heinlein..."></textarea>
+                            </div>
+                            
+                            <div class="personaje-card">
+                                <h4>Carl Sagan</h4>
+                                <textarea id="sagan" rows="3" placeholder="Lo que sé sobre Sagan..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <button class="btn" onclick="guardarPersonajes()">Guardar Información</button>
+                        <div class="resultado" id="resultado3">
+                            <strong>¡Información de personajes guardada!</strong>
+                        </div>
+                    </div>
+                    
+                    <!-- Actividad 5 -->
+                    <div class="actividad">
+                        <h3>4. Datos sobre la ciencia ficción</h3>
+                        <p>Completa la siguiente tabla con información de los párrafos 3 y 4 del texto:</p>
+                        
+                        <div style="overflow-x: auto; margin: 15px 0;">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <thead>
+                                    <tr style="background-color: #2c3e50; color: white;">
+                                        <th style="padding: 12px; text-align: left;">Años en que logra popularidad la ciencia ficción</th>
+                                        <th style="padding: 12px; text-align: left;">Autores con conocimiento científico que hacen ciencia ficción</th>
+                                        <th style="padding: 12px; text-align: left;">Autor de ciencia ficción que destaca</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 12px; border: 1px solid #ddd;">
+                                            <input type="text" id="anios-popularidad" placeholder="Ej: Años 40 y 50 del siglo XX">
+                                        </td>
+                                        <td style="padding: 12px; border: 1px solid #ddd;">
+                                            <input type="text" id="autores-cientificos" placeholder="Nombra al menos 3 autores">
+                                        </td>
+                                        <td style="padding: 12px; border: 1px solid #ddd;">
+                                            <input type="text" id="autor-destacado" placeholder="¿Quién destaca especialmente?">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <button class="btn" onclick="guardarTabla()">Guardar Tabla</button>
+                        <div class="resultado" id="resultado4">
+                            <strong>¡Tabla completada y guardada!</strong>
+                        </div>
+                    </div>
+                    
+                    <!-- Actividad 6 -->
+                    <div class="actividad">
+                        <h3>5. Sobre la ciencia ficción</h3>
+                        <p>Elige la respuesta correcta para cada pregunta:</p>
+                        
+                        <div class="opciones">
+                            <p><strong>La ciencia ficción es...</strong></p>
+                            <label class="opcion" onclick="seleccionarOpcion(this)">
+                                <input type="radio" name="pregunta1" class="radio-btn" value="la popularización de la ciencia">
+                                la popularización de la ciencia
+                            </label>
+                            <label class="opcion" onclick="seleccionarOpcion(this)">
+                                <input type="radio" name="pregunta1" class="radio-btn" value="un género">
+                                un género
+                            </label>
+                            <label class="opcion" onclick="seleccionarOpcion(this)">
+                                <input type="radio" name="pregunta1" class="radio-btn" value="un vehículo literario">
+                                un vehículo literario
+                            </label>
+                        </div>
+                        
+                        <div class="opciones">
+                            <p><strong>La ciencia ficción se desarrolla...</strong></p>
+                            <label class="opcion" onclick="seleccionarOpcion(this)">
+                                <input type="radio" name="pregunta2" class="radio-btn" value="en la literatura, el cine, la televisión, el cómic y otras artes narrativas">
+                                en la literatura, el cine, la televisión, el cómic y otras artes narrativas
+                            </label>
+                            <label class="opcion" onclick="seleccionarOpcion(this)">
+                                <input type="radio" name="pregunta2" class="radio-btn" value="en las diversas artes de la narración">
+                                en las diversas artes de la narración
+                            </label>
+                            <label class="opcion" onclick="seleccionarOpcion(this)">
+                                <input type="radio" name="pregunta2" class="radio-btn" value="en la divulgación científica">
+                                en la divulgación científica
+                            </label>
+                        </div>
+                        
+                        <button class="btn" onclick="verificarRespuestas()">Verificar Respuestas</button>
+                        <div class="resultado" id="resultado5">
+                            <strong id="respuesta-correcta"></strong>
+                            <p id="explicacion-respuesta"></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Actividad 9 -->
+                    <div class="actividad">
+                        <h3>6. Condicional contrafáctico</h3>
+                        <p>Plantea tres preguntas usando el "condicional contrafáctico" (¿qué sucedería si...?) sobre hipótesis prematuras:</p>
+                        
+                        <div class="personajes-grid">
+                            <div class="personaje-card">
+                                <h4>Pregunta 1</h4>
+                                <textarea id="pregunta1" rows="3" placeholder="Ej: ¿Qué sucedería si pudiéramos viajar en el tiempo?"></textarea>
+                            </div>
+                            
+                            <div class="personaje-card">
+                                <h4>Pregunta 2</h4>
+                                <textarea id="pregunta2" rows="3" placeholder="Ej: ¿Qué sucedería si los robots tuvieran emociones?"></textarea>
+                            </div>
+                            
+                            <div class="personaje-card">
+                                <h4>Pregunta 3</h4>
+                                <textarea id="pregunta3" rows="3" placeholder="Ej: ¿Qué sucedería si encontráramos vida en Marte?"></textarea>
+                            </div>
+                        </div>
+                        
+                        <button class="btn" onclick="guardarPreguntas()">Guardar Preguntas</button>
+                        <div class="resultado" id="resultado6">
+                            <strong>¡Preguntas guardadas! Ahora piensa en posibles respuestas.</strong>
+                        </div>
+                    </div>
+                    
+                    <!-- Botón para guardar todo -->
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button class="btn" onclick="guardarTodo()" style="padding: 15px 30px; font-size: 1.1rem;">
+                            💾 Guardar Todo el Trabajo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECCIÓN DE AUTOEVALUACIÓN -->
+        <div class="autoevaluacion-container">
+            <div class="autoevaluacion-header">
+                <h2>📋 FICHA DE AUTOEVALUACIÓN DEL ESTUDIANTE</h2>
+            </div>
+            
+            <div class="info-estudiante">
+                <div class="campo-formulario">
+                    <label for="nombre-estudiante">Nombre del estudiante:</label>
+                    <input type="text" id="nombre-estudiante" placeholder="Escribe tu nombre completo">
+                </div>
+                
+                <div class="campo-formulario">
+                    <label for="fecha-autoevaluacion">Fecha:</label>
+                    <input type="text" id="fecha-autoevaluacion" placeholder="DD/MM/AAAA">
+                </div>
+                
+                <div class="campo-formulario">
+                    <label for="area">Área:</label>
+                    <input type="text" id="area" value="Comunicación" readonly>
+                </div>
+                
+                <div class="campo-formulario">
+                    <label for="grado">Grado:</label>
+                    <input type="text" id="grado" value="2.º de secundaria" readonly>
+                </div>
+            </div>
+            
+            <div class="indicaciones">
+                <p><strong>Indicaciones:</strong> Lee cada enunciado y selecciona la opción que mejor represente tu desempeño.</p>
+            </div>
+            
+            <table class="tabla-autoevaluacion">
+                <thead>
+                    <tr>
+                        <th width="5%">Nº</th>
+                        <th width="55%">Criterios de autoevaluación</th>
+                        <th width="13%">Sí</th>
+                        <th width="13%">A veces</th>
+                        <th width="14%">No</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Criterio 1 -->
+                    <tr>
+                        <td>1</td>
+                        <td class="criterio">Comprendí el tema central del texto sobre ciencia y ciencia ficción.</td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio1', 'si')">
+                                    <div class="opcion-checkbox" id="criterio1-si"></div>
+                                    <span class="opcion-texto">Sí</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio1', 'a-veces')">
+                                    <div class="opcion-checkbox" id="criterio1-a-veces"></div>
+                                    <span class="opcion-texto">A veces</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio1', 'no')">
+                                    <div class="opcion-checkbox" id="criterio1-no"></div>
+                                    <span class="opcion-texto">No</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Criterio 2 -->
+                    <tr>
+                        <td>2</td>
+                        <td class="criterio">Pude identificar la postura del autor sobre la relación entre ciencia y ciencia ficción.</td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio2', 'si')">
+                                    <div class="opcion-checkbox" id="criterio2-si"></div>
+                                    <span class="opcion-texto">Sí</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio2', 'a-veces')">
+                                    <div class="opcion-checkbox" id="criterio2-a-veces"></div>
+                                    <span class="opcion-texto">A veces</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio2', 'no')">
+                                    <div class="opcion-checkbox" id="criterio2-no"></div>
+                                    <span class="opcion-texto">No</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Criterio 3 -->
+                    <tr>
+                        <td>3</td>
+                        <td class="criterio">Reconocí las ideas principales y los argumentos del texto.</td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio3', 'si')">
+                                    <div class="opcion-checkbox" id="criterio3-si"></div>
+                                    <span class="opcion-texto">Sí</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio3', 'a-veces')">
+                                    <div class="opcion-checkbox" id="criterio3-a-veces"></div>
+                                    <span class="opcion-texto">A veces</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio3', 'no')">
+                                    <div class="opcion-checkbox" id="criterio3-no"></div>
+                                    <span class="opcion-texto">No</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Criterio 4 -->
+                    <tr>
+                        <td>4</td>
+                        <td class="criterio">Diferencié características de la ciencia y de la ciencia ficción.</td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio4', 'si')">
+                                    <div class="opcion-checkbox" id="criterio4-si"></div>
+                                    <span class="opcion-texto">Sí</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio4', 'a-veces')">
+                                    <div class="opcion-checkbox" id="criterio4-a-veces"></div>
+                                    <span class="opcion-texto">A veces</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio4', 'no')">
+                                    <div class="opcion-checkbox" id="criterio4-no"></div>
+                                    <span class="opcion-texto">No</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Criterio 5 -->
+                    <tr>
+                        <td>5</td>
+                        <td class="criterio">Relacioné el contenido del texto con ejemplos de la realidad o la imaginación.</td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio5', 'si')">
+                                    <div class="opcion-checkbox" id="criterio5-si"></div>
+                                    <span class="opcion-texto">Sí</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio5', 'a-veces')">
+                                    <div class="opcion-checkbox" id="criterio5-a-veces"></div>
+                                    <span class="opcion-texto">A veces</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio5', 'no')">
+                                    <div class="opcion-checkbox" id="criterio5-no"></div>
+                                    <span class="opcion-texto">No</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Criterio 6 -->
+                    <tr>
+                        <td>6</td>
+                        <td class="criterio">Participé activamente en las actividades propuestas.</td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio6', 'si')">
+                                    <div class="opcion-checkbox" id="criterio6-si"></div>
+                                    <span class="opcion-texto">Sí</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio6', 'a-veces')">
+                                    <div class="opcion-checkbox" id="criterio6-a-veces"></div>
+                                    <span class="opcion-texto">A veces</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio6', 'no')">
+                                    <div class="opcion-checkbox" id="criterio6-no"></div>
+                                    <span class="opcion-texto">No</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Criterio 7 -->
+                    <tr>
+                        <td>7</td>
+                        <td class="criterio">Pude expresar mi opinión personal sobre el tema leído.</td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio7', 'si')">
+                                    <div class="opcion-checkbox" id="criterio7-si"></div>
+                                    <span class="opcion-texto">Sí</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio7', 'a-veces')">
+                                    <div class="opcion-checkbox" id="criterio7-a-veces"></div>
+                                    <span class="opcion-texto">A veces</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio7', 'no')">
+                                    <div class="opcion-checkbox" id="criterio7-no"></div>
+                                    <span class="opcion-texto">No</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Criterio 8 -->
+                    <tr>
+                        <td>8</td>
+                        <td class="criterio">Argumenté mis ideas de forma clara y coherente.</td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio8', 'si')">
+                                    <div class="opcion-checkbox" id="criterio8-si"></div>
+                                    <span class="opcion-texto">Sí</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio8', 'a-veces')">
+                                    <div class="opcion-checkbox" id="criterio8-a-veces"></div>
+                                    <span class="opcion-texto">A veces</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="opciones-evaluacion">
+                                <div class="opcion-evaluacion" onclick="seleccionarEvaluacion(this, 'criterio8', 'no')">
+                                    <div class="opcion-checkbox" id="criterio8-no"></div>
+                                    <span class="opcion-texto">No</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="reflexion-final">
+                <h3>📝 Reflexión final</h3>
+                
+                <div class="pregunta-reflexion">
+                    <p>¿Qué fue lo que más te llamó la atención del texto?</p>
+                    <textarea id="reflexion1" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+                
+                <div class="pregunta-reflexion">
+                    <p>¿Qué aprendiste sobre la diferencia entre ciencia y ciencia ficción?</p>
+                    <textarea id="reflexion2" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+                
+                <div class="pregunta-reflexion">
+                    <p>¿Qué puedes mejorar para comprender mejor textos argumentativos?</p>
+                    <textarea id="reflexion3" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
+                </div>
+            </div>
+            
+            <div class="compromiso-personal">
+                <h3>🎯 Compromiso personal</h3>
+                <p>Escribe una acción que realizarás para mejorar tu comprensión lectora:</p>
+                <textarea id="compromiso" rows="3" placeholder="Ej: Leeré un artículo científico cada semana..."></textarea>
+            </div>
+            
+            <button class="btn-autoevaluacion" onclick="completarAutoevaluacion()">
+                ✅ Completar Autoevaluación
+            </button>
+            
+            <div class="resumen-autoevaluacion" id="resumen-autoevaluacion">
+                <h3>📊 Resumen de tu Autoevaluación</h3>
+                <p id="resumen-texto-autoeval">Aquí aparecerá un resumen de tu autoevaluación una vez que la completes.</p>
+                
+                <div class="estadisticas" id="estadisticas-container">
+                    <!-- Las estadísticas se generarán dinámicamente -->
+                </div>
+                
+                <p><strong>Recomendación:</strong> Revisa los criterios donde marcaste "A veces" o "No" para identificar áreas de mejora en tu proceso de aprendizaje.</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Material interactivo basado en "Ficha 3: Ciencia y Ciencia Ficción" - 2.º grado de secundaria</p>
+            <p>Las respuestas se guardan temporalmente en tu navegador</p>
+        </footer>
+    </div>
+    
+    <button class="btn btn-imprimir" onclick="window.print()">🖨️ Imprimir / Guardar como PDF</button>
+
+    <script>
+        // Contador de palabras para textareas
+        document.getElementById('resumen-texto').addEventListener('input', function() {
+            const palabras = this.value.trim().split(/\s+/).filter(word => word.length > 0);
+            document.getElementById('contador1').textContent = palabras.length + ' palabras';
+        });
+        
+        // Función para seleccionar opciones
+        function seleccionarOpcion(elemento) {
+            // Desmarcar todas las opciones del mismo grupo
+            const opciones = elemento.parentElement.querySelectorAll('.opcion');
+            opciones.forEach(op => op.classList.remove('seleccionada'));
+            
+            // Marcar la opción seleccionada
+            elemento.classList.add('seleccionada');
+            
+            // Marcar el radio button
+            const radio = elemento.querySelector('.radio-btn');
+            radio.checked = true;
+        }
+        
+        // Función para guardar respuestas individuales
+        function guardarRespuesta(idElemento, mensaje) {
+            const elemento = document.getElementById(idElemento);
+            const respuesta = elemento.value.trim();
+            
+            if (respuesta === '') {
+                alert('Por favor, escribe tu respuesta antes de guardar.');
+                return;
+            }
+            
+            // Guardar en localStorage
+            localStorage.setItem(idElemento, respuesta);
+            
+            // Mostrar confirmación
+            const resultadoId = 'resultado' + idElemento.split('-').pop();
+            const resultado = document.getElementById(resultadoId);
+            resultado.classList.add('mostrar');
+            
+            setTimeout(() => {
+                resultado.classList.remove('mostrar');
+            }, 3000);
+        }
+        
+        function guardarComparacion() {
+            const similitudes = document.getElementById('similitudes').value.trim();
+            const diferencias = document.getElementById('diferencias').value.trim();
+            
+            if (similitudes === '' && diferencias === '') {
+                alert('Por favor, completa al menos una de las columnas.');
+                return;
+            }
+            
+            localStorage.setItem('similitudes', similitudes);
+            localStorage.setItem('diferencias', diferencias);
+            
+            const resultado = document.getElementById('resultado2');
+            resultado.classList.add('mostrar');
+            
+            setTimeout(() => {
+                resultado.classList.remove('mostrar');
+            }, 3000);
+        }
+        
+        function guardarPersonajes() {
+            const personajes = {
+                asimov: document.getElementById('asimov').value.trim(),
+                clarke: document.getElementById('clarke').value.trim(),
+                heinlein: document.getElementById('heinlein').value.trim(),
+                sagan: document.getElementById('sagan').value.trim()
+            };
+            
+            // Verificar que al menos un personaje tenga información
+            const tieneInfo = Object.values(personajes).some(info => info !== '');
+            
+            if (!tieneInfo) {
+                alert('Por favor, escribe información sobre al menos un personaje.');
+                return;
+            }
+            
+            localStorage.setItem('personajes', JSON.stringify(personajes));
+            
+            const resultado = document.getElementById('resultado3');
+            resultado.classList.add('mostrar');
+            
+            setTimeout(() => {
+                resultado.classList.remove('mostrar');
+            }, 3000);
+        }
+        
+        function guardarTabla() {
+            const anios = document.getElementById('anios-popularidad').value.trim();
+            const autores = document.getElementById('autores-cientificos').value.trim();
+            const destacado = document.getElementById('autor-destacado').value.trim();
+            
+            if (anios === '' || autores === '' || destacado === '') {
+                alert('Por favor, completa todos los campos de la tabla.');
+                return;
+            }
+            
+            const tablaData = {
+                anios: anios,
+                autores: autores,
+                destacado: destacado
+            };
+            
+            localStorage.setItem('tablaCienciaFiccion', JSON.stringify(tablaData));
+            
+            const resultado = document.getElementById('resultado4');
+            resultado.classList.add('mostrar');
+            
+            setTimeout(() => {
+                resultado.classList.remove('mostrar');
+            }, 3000);
+        }
+        
+        function verificarRespuestas() {
+            const pregunta1 = document.querySelector('input[name="pregunta1"]:checked');
+            const pregunta2 = document.querySelector('input[name="pregunta2"]:checked');
+            
+            if (!pregunta1 || !pregunta2) {
+                alert('Por favor, selecciona una respuesta para cada pregunta.');
+                return;
+            }
+            
+            // Respuestas correctas (basadas en el texto)
+            const correcta1 = 'un género';
+            const correcta2 = 'en la literatura, el cine, la televisión, el cómic y otras artes narrativas';
+            
+            const respuesta1 = pregunta1.value;
+            const respuesta2 = pregunta2.value;
+            
+            let correctas = 0;
+            let explicacion = '';
+            
+            if (respuesta1 === correcta1) {
+                correctas++;
+                explicacion += '<p>✅ <strong>Pregunta 1 correcta:</strong> La ciencia ficción es un género literario y narrativo.</p>';
+            } else {
+                explicacion += '<p>❌ <strong>Pregunta 1:</strong> La respuesta correcta es "un género". Revisa el segundo párrafo del texto.</p>';
+            }
+            
+            if (respuesta2 === correcta2) {
+                correctas++;
+                explicacion += '<p>✅ <strong>Pregunta 2 correcta:</strong> La ciencia ficción se desarrolla en múltiples medios narrativos.</p>';
+            } else {
+                explicacion += '<p>❌ <strong>Pregunta 2:</strong> La respuesta correcta menciona específicamente los medios donde se desarrolla la ciencia ficción.</p>';
+            }
+            
+            // Guardar respuestas
+            localStorage.setItem('respuestaPregunta1', respuesta1);
+            localStorage.setItem('respuestaPregunta2', respuesta2);
+            
+            // Mostrar resultados
+            const resultado = document.getElementById('resultado5');
+            document.getElementById('respuesta-correcta').innerHTML = `Tienes ${correctas} de 2 respuestas correctas`;
+            document.getElementById('explicacion-respuesta').innerHTML = explicacion;
+            resultado.classList.add('mostrar');
+        }
+        
+        function guardarPreguntas() {
+            const preguntas = {
+                pregunta1: document.getElementById('pregunta1').value.trim(),
+                pregunta2: document.getElementById('pregunta2').value.trim(),
+                pregunta3: document.getElementById('pregunta3').value.trim()
+            };
+            
+            // Verificar que al menos una pregunta esté completa
+            const tienePreguntas = Object.values(preguntas).some(pregunta => pregunta !== '');
+            
+            if (!tienePreguntas) {
+                alert('Por favor, escribe al menos una pregunta.');
+                return;
+            }
+            
+            localStorage.setItem('preguntasContrafacticas', JSON.stringify(preguntas));
+            
+            const resultado = document.getElementById('resultado6');
+            resultado.classList.add('mostrar');
+            
+            setTimeout(() => {
+                resultado.classList.remove('mostrar');
+            }, 3000);
+        }
+        
+        function guardarTodo() {
+            // Verificar que todas las actividades tengan al menos algo de información
+            let actividadesCompletadas = 0;
+            const totalActividades = 6;
+            
+            // Actividad 1
+            if (document.getElementById('resumen-texto').value.trim() !== '') actividadesCompletadas++;
+            
+            // Actividad 2
+            if (document.getElementById('similitudes').value.trim() !== '' || 
+                document.getElementById('diferencias').value.trim() !== '') actividadesCompletadas++;
+            
+            // Actividad 3
+            const personajes = ['asimov', 'clarke', 'heinlein', 'sagan'];
+            const tienePersonajes = personajes.some(id => document.getElementById(id).value.trim() !== '');
+            if (tienePersonajes) actividadesCompletadas++;
+            
+            // Actividad 4
+            if (document.getElementById('anios-popularidad').value.trim() !== '' && 
+                document.getElementById('autores-cientificos').value.trim() !== '' && 
+                document.getElementById('autor-destacado').value.trim() !== '') actividadesCompletadas++;
+            
+            // Actividad 5
+            const pregunta1 = document.querySelector('input[name="pregunta1"]:checked');
+            const pregunta2 = document.querySelector('input[name="pregunta2"]:checked');
+            if (pregunta1 && pregunta2) actividadesCompletadas++;
+            
+            // Actividad 6
+            const preguntas = ['pregunta1', 'pregunta2', 'pregunta3'];
+            const tienePreguntas = preguntas.some(id => document.getElementById(id).value.trim() !== '');
+            if (tienePreguntas) actividadesCompletadas++;
+            
+            // Mostrar resumen
+            alert(`✅ Has completado ${actividadesCompletadas} de ${totalActividades} actividades.\n\nTodas tus respuestas han sido guardadas temporalmente en tu navegador.\n\nPuedes imprimir esta página para tener un registro físico de tu trabajo.`);
+            
+            // También guardar un timestamp
+            localStorage.setItem('ultimaGuardada', new Date().toLocaleString());
+        }
+        
+        // FUNCIONES PARA LA AUTOEVALUACIÓN
+        let evaluaciones = {
+            criterio1: null,
+            criterio2: null,
+            criterio3: null,
+            criterio4: null,
+            criterio5: null,
+            criterio6: null,
+            criterio7: null,
+            criterio8: null
+        };
+        
+        function seleccionarEvaluacion(elemento, criterio, valor) {
+            // Encontrar todas las opciones del mismo criterio
+            const fila = elemento.closest('tr');
+            const opciones = fila.querySelectorAll('.opcion-evaluacion');
+            
+            // Remover selección de todas las opciones del mismo criterio
+            opciones.forEach(op => {
+                op.classList.remove('seleccionada');
+                const checkbox = op.querySelector('.opcion-checkbox');
+                checkbox.classList.remove('seleccionada');
+            });
+            
+            // Marcar la opción seleccionada
+            elemento.classList.add('seleccionada');
+            const checkboxSeleccionado = elemento.querySelector('.opcion-checkbox');
+            checkboxSeleccionado.classList.add('seleccionada');
+            
+            // Guardar la selección
+            evaluaciones[criterio] = valor;
+            
+            // Guardar en localStorage
+            localStorage.setItem('autoevaluacion', JSON.stringify(evaluaciones));
+        }
+        
+        function completarAutoevaluacion() {
+            // Validar datos del estudiante
+            const nombre = document.getElementById('nombre-estudiante').value.trim();
+            const fecha = document.getElementById('fecha-autoevaluacion').value.trim();
+            
+            if (!nombre) {
+                alert('Por favor, escribe tu nombre.');
+                return;
+            }
+            
+            if (!fecha) {
+                alert('Por favor, escribe la fecha.');
+                return;
+            }
+            
+            // Validar que se haya respondido al menos un criterio
+            const criteriosRespondidos = Object.values(evaluaciones).filter(val => val !== null).length;
+            
+            if (criteriosRespondidos === 0) {
+                alert('Por favor, responde al menos un criterio de autoevaluación.');
+                return;
+            }
+            
+            // Guardar datos del estudiante
+            localStorage.setItem('nombre-estudiante', nombre);
+            localStorage.setItem('fecha-autoevaluacion', fecha);
+            
+            // Guardar reflexiones
+            const reflexion1 = document.getElementById('reflexion1').value.trim();
+            const reflexion2 = document.getElementById('reflexion2').value.trim();
+            const reflexion3 = document.getElementById('reflexion3').value.trim();
+            const compromiso = document.getElementById('compromiso').value.trim();
+            
+            localStorage.setItem('reflexion1', reflexion1);
+            localStorage.setItem('reflexion2', reflexion2);
+            localStorage.setItem('reflexion3', reflexion3);
+            localStorage.setItem('compromiso', compromiso);
+            
+            // Calcular estadísticas
+            let siCount = 0;
+            let aVecesCount = 0;
+            let noCount = 0;
+            
+            for (const criterio in evaluaciones) {
+                if (evaluaciones[criterio] === 'si') siCount++;
+                else if (evaluaciones[criterio] === 'a-veces') aVecesCount++;
+                else if (evaluaciones[criterio] === 'no') noCount++;
+            }
+            
+            const total = siCount + aVecesCount + noCount;
+            const porcentajeSi = total > 0 ? Math.round((siCount / total) * 100) : 0;
+            
+            // Generar resumen
+            const resumenHTML = `
+                <p><strong>Estudiante:</strong> ${nombre}</p>
+                <p><strong>Fecha:</strong> ${fecha}</p>
+                <p><strong>Área:</strong> Comunicación | <strong>Grado:</strong> 2.º de secundaria</p>
+                <p><strong>Texto trabajado:</strong> "Ciencia y Ciencia Ficción"</p>
+                <p>Has completado ${total} de 8 criterios de autoevaluación.</p>
+            `;
+            
+            document.getElementById('resumen-texto-autoeval').innerHTML = resumenHTML;
+            
+            // Generar estadísticas
+            const estadisticasHTML = `
+                <div class="estadistica">
+                    <div class="numero-estadistica">${siCount}</div>
+                    <div class="texto-estadistica">Sí</div>
+                </div>
+                <div class="estadistica">
+                    <div class="numero-estadistica">${aVecesCount}</div>
+                    <div class="texto-estadistica">A veces</div>
+                </div>
+                <div class="estadistica">
+                    <div class="numero-estadistica">${noCount}</div>
+                    <div class="texto-estadistica">No</div>
+                </div>
+                <div class="estadistica">
+                    <div class="numero-estadistica">${porcentajeSi}%</div>
+                    <div class="texto-estadistica">Autoconfianza</div>
+                </div>
+            `;
+            
+            document.getElementById('estadisticas-container').innerHTML = estadisticasHTML;
+            
+            // Mostrar resumen
+            const resumen = document.getElementById('resumen-autoevaluacion');
+            resumen.classList.add('mostrar');
+            
+            // Scroll al resumen
+            resumen.scrollIntoView({ behavior: 'smooth' });
+            
+            alert(`✅ Autoevaluación completada exitosamente.\n\nHas evaluado ${total} criterios.\nPuedes imprimir esta página para entregar tu autoevaluación.`);
+        }
+        
+        // Cargar respuestas guardadas al cargar la página
+        window.addEventListener('DOMContentLoaded', function() {
+            // Cargar actividad 1
+            const resumenGuardado = localStorage.getItem('resumen-texto');
+            if (resumenGuardado) {
+                document.getElementById('resumen-texto').value = resumenGuardado;
+            }
+            
+            // Cargar actividad 2
+            const similitudesGuardadas = localStorage.getItem('similitudes');
+            const diferenciasGuardadas = localStorage.getItem('diferencias');
+            if (similitudesGuardadas) document.getElementById('similitudes').value = similitudesGuardadas;
+            if (diferenciasGuardadas) document.getElementById('diferencias').value = diferenciasGuardadas;
+            
+            // Cargar actividad 3
+            const personajesGuardados = localStorage.getItem('personajes');
+            if (personajesGuardados) {
+                try {
+                    const personajes = JSON.parse(personajesGuardados);
+                    if (personajes.asimov) document.getElementById('asimov').value = personajes.asimov;
+                    if (personajes.clarke) document.getElementById('clarke').value = personajes.clarke;
+                    if (personajes.heinlein) document.getElementById('heinlein').value = personajes.heinlein;
+                    if (personajes.sagan) document.getElementById('sagan').value = personajes.sagan;
+                } catch (e) {
+                    console.error('Error al cargar personajes:', e);
+                }
+            }
+            
+            // Cargar actividad 4
+            const tablaGuardada = localStorage.getItem('tablaCienciaFiccion');
+            if (tablaGuardada) {
+                try {
+                    const tabla = JSON.parse(tablaGuardada);
+                    if (tabla.anios) document.getElementById('anios-popularidad').value = tabla.anios;
+                    if (tabla.autores) document.getElementById('autores-cientificos').value = tabla.autores;
+                    if (tabla.destacado) document.getElementById('autor-destacado').value = tabla.destacado;
+                } catch (e) {
+                    console.error('Error al cargar tabla:', e);
+                }
+            }
+            
+            // Cargar actividad 5
+            const respuesta1Guardada = localStorage.getItem('respuestaPregunta1');
+            const respuesta2Guardada = localStorage.getItem('respuestaPregunta2');
+            
+            if (respuesta1Guardada) {
+                const opciones = document.querySelectorAll('input[name="pregunta1"]');
+                opciones.forEach(op => {
+                    if (op.value === respuesta1Guardada) {
+                        op.checked = true;
+                        op.parentElement.classList.add('seleccionada');
+                    }
+                });
+            }
+            
+            if (respuesta2Guardada) {
+                const opciones = document.querySelectorAll('input[name="pregunta2"]');
+                opciones.forEach(op => {
+                    if (op.value === respuesta2Guardada) {
+                        op.checked = true;
+                        op.parentElement.classList.add('seleccionada');
+                    }
+                });
+            }
+            
+            // Cargar actividad 6
+            const preguntasGuardadas = localStorage.getItem('preguntasContrafacticas');
+            if (preguntasGuardadas) {
+                try {
+                    const preguntas = JSON.parse(preguntasGuardadas);
+                    if (preguntas.pregunta1) document.getElementById('pregunta1').value = preguntas.pregunta1;
+                    if (preguntas.pregunta2) document.getElementById('pregunta2').value = preguntas.pregunta2;
+                    if (preguntas.pregunta3) document.getElementById('pregunta3').value = preguntas.pregunta3;
+                } catch (e) {
+                    console.error('Error al cargar preguntas:', e);
+                }
+            }
+            
+            // Cargar autoevaluación
+            const autoevaluacionGuardada = localStorage.getItem('autoevaluacion');
+            if (autoevaluacionGuardada) {
+                try {
+                    evaluaciones = JSON.parse(autoevaluacionGuardada);
+                    
+                    // Restaurar selecciones visuales
+                    for (const criterio in evaluaciones) {
+                        const valor = evaluaciones[criterio];
+                        if (valor) {
+                            const checkboxId = `${criterio}-${valor}`;
+                            const checkbox = document.getElementById(checkboxId);
+                            if (checkbox) {
+                                checkbox.classList.add('seleccionada');
+                                checkbox.parentElement.classList.add('seleccionada');
+                            }
+                        }
+                    }
+                } catch (e) {
+                    console.error('Error al cargar autoevaluación:', e);
+                }
+            }
+            
+            // Cargar datos del estudiante
+            const nombreGuardado = localStorage.getItem('nombre-estudiante');
+            const fechaGuardada = localStorage.getItem('fecha-autoevaluacion');
+            
+            if (nombreGuardado) document.getElementById('nombre-estudiante').value = nombreGuardado;
+            if (fechaGuardada) document.getElementById('fecha-autoevaluacion').value = fechaGuardada;
+            
+            // Cargar reflexiones
+            const reflexion1Guardada = localStorage.getItem('reflexion1');
+            const reflexion2Guardada = localStorage.getItem('reflexion2');
+            const reflexion3Guardada = localStorage.getItem('reflexion3');
+            const compromisoGuardado = localStorage.getItem('compromiso');
+            
+            if (reflexion1Guardada) document.getElementById('reflexion1').value = reflexion1Guardada;
+            if (reflexion2Guardada) document.getElementById('reflexion2').value = reflexion2Guardada;
+            if (reflexion3Guardada) document.getElementById('reflexion3').value = reflexion3Guardada;
+            if (compromisoGuardado) document.getElementById('compromiso').value = compromisoGuardado;
+            
+            // Mostrar última vez guardado
+            const ultimaGuardada = localStorage.getItem('ultimaGuardada');
+            if (ultimaGuardada) {
+                console.log(`Tus respuestas fueron guardadas por última vez: ${ultimaGuardada}`);
+            }
+            
+            // Establecer fecha actual por defecto
+            if (!fechaGuardada) {
+                const hoy = new Date();
+                const fechaFormateada = `${hoy.getDate().toString().padStart(2, '0')}/${(hoy.getMonth() + 1).toString().padStart(2, '0')}/${hoy.getFullYear()}`;
+                document.getElementById('fecha-autoevaluacion').value = fechaFormateada;
+            }
+        });
+    </script>
+</body>
+</html>
